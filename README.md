@@ -7,6 +7,6 @@ Color blindness is a widespread abnormality. The purpose of this web application
 
 ## Documents
 
-Matthew Wickline - http://colorfilter.wickline.org/
-Tyler Howard - http://tylerdavidhoward.com/thesis/
-http://web.archive.org/web/20081014161121/http://www.colorjack.com/labs/colormatrix/
+- Matthew Wickline - http://colorfilter.wickline.org/
+- Tyler Howard - http://tylerdavidhoward.com/thesis/
+- http://web.archive.org/web/20081014161121/http://www.colorjack.com/labs/colormatrix/

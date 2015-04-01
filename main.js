@@ -72,6 +72,6 @@ $( function main() {
   handleAbnormalityMenu();
   
   loadFilter( 'none' );
-  loadUrl( 'https://duckduckgo.com/?q=color&iax=1&ia=images' );
+  loadUrl( 'https://duckduckgo.com' );
   
 } );

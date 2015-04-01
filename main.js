@@ -20,18 +20,41 @@ function handleFormSubmit() {
     var url = $( '#url-form .form-control' ).val();
     loadUrl( url );
   });
+
+}
+
+function handleAbnormalityMenu() {
+
+  $( '#abnormality-menu li a' ).click( function( event ) {
+    event.preventDefault();
+    
+    var key = $( this ).attr( 'key' );
+    loadFilter( key );
+    $( '#abnormality-menu .dropdown-toggle span' ).html( $( this ).html() );
+  } ) ;
+  
+}
+
+function loadFilter( filter ) {
+  
+  var element = $( '.colorblind' );
+  var value = 'none' === filter ? '' : 'url(colorblindness.svg#' + filter + ')';
+  
+  element.css( 'filter', value );
+  element.css( '-webkit-filter', value );
   
 }
 
 function loadUrl( url ) {
-    
+   
   if( -1 === url.indexOf( "://" ) ) {
     url = 'http://' + url;
   }
   
+  $( '#url-form .form-control' ).val( url );
   $( 'iframe.colorblind' ).attr( 'src', url );
   jump( url );
-
+  
 }
 
 function jump( anchor ) {
@@ -46,5 +69,9 @@ $( function main() {
   
   handleIframeHeight();
   handleFormSubmit();
+  handleAbnormalityMenu();
+  
+  loadFilter( 'none' );
+  loadUrl( 'https://duckduckgo.com/?q=color&iax=1&ia=images' );
   
 } );

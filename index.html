@@ -5,7 +5,8 @@
       html, body, iframe {
         margin: 0px;
         padding: 0px;
-        height: 99%;
+        border: none;
+        height: 100%;
         width: 100%;
         box-sizing: border-box;
         -moz-box-sizing: border-box;
@@ -16,11 +17,65 @@
         -webkit-filter: url(colorblindness.svg#protanopia);
         border: none;
       }
+      
+      .navbar {
+        margin-bottom: 0px !important;
+      }
     </style>
+    <link rel="stylesheet" type="text/css" href="libs/bootstrap.min.css">
   </head>
   <body>
-    <iframe class="colorblind" src="https://duckduckgo.com/?q=color&iax=1&ia=images"></iframe>
+    <nav class="navbar navbar-inverse navbar-static-top">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="https://github.com/jbouny/colorblinder" class="navbar-brand">Colorblinder</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                  
+                  <div class="navbar-right">
+                    <form class="navbar-form" role="search">
+                        <div class="input-group">
+                          <span class="input-group-addon">URL</span>
+                          <input type="text" class="form-control" placeholder="http://"/>
+                        </div>
+                        <button class="btn btn-default" type="submit">Filter</button>
+                    </form>
+                  </div>
+                
+                  <ul class="nav navbar-nav navbar-right">
+                      <li class="dropdown">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Abnormality <b class="caret"></b></a>
+                          <ul class="dropdown-menu">
+                            <li><a href="#" key="protanopia">Protanopia</a></li>
+                            <li><a href="#" key="protanomaly">Protanomaly</a></li>
+                            <li><a href="#" key="deuteranomaly">Deuteranopia</a></li>
+                            <li><a href="#" key="deuteranomaly">Deuteranomaly</a></li>
+                            <li><a href="#" key="tritanopia">Tritanopia</a></li>
+                            <li><a href="#" key="tritanomaly">Tritanomaly</a></li>
+                            <li><a href="#" key="achromatopsia">Achromatopsia</a></li>
+                            <li><a href="#" key="achromatomaly">Achromatomaly</a></li>                  
+                          </ul>
+                      </li>
+                  </ul>
+                  
+                </div>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+    </nav>
+  
+    <iframe class=" colorblind" src="https://duckduckgo.com/?q=color&iax=1&ia=images"></iframe>
     
-    <script src="libs/zepto.min.js"></script>
+    <script src="libs/jquery.min.js"></script>
+    <script src="libs/bootstrap.min.js"></script>
   </body>
 </html>

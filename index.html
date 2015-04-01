@@ -2,14 +2,21 @@
 <html>
   <head>
     <style type="text/css">
+      html, body {
+        height: 100%;
+      }
+    
       html, body, iframe {
         margin: 0px;
         padding: 0px;
         border: none;
-        height: 100%;
         width: 100%;
         box-sizing: border-box;
         -moz-box-sizing: border-box;
+      }
+      
+      body {
+        overflow: hidden;
       }
       
       .colorblind {
@@ -73,9 +80,10 @@
         </div>
     </nav>
   
-    <iframe class=" colorblind" src="https://duckduckgo.com/?q=color&iax=1&ia=images"></iframe>
+    <iframe class="colorblind" src="https://duckduckgo.com/?q=color&iax=1&ia=images"></iframe>
     
     <script src="libs/jquery.min.js"></script>
     <script src="libs/bootstrap.min.js"></script>
+    <script src="main.js"></script>
   </body>
 </html>

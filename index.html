@@ -3,11 +3,11 @@
   <head>
     <title>Colorblinder</title>
     <style type="text/css">
-      html, body {
+      html, body, #colorblind-container {
         height: 100%;
       }
     
-      html, body, iframe {
+      html, body, #colorblind-container, #colorblind {
         margin: 0px;
         padding: 0px;
         border: none;
@@ -20,7 +20,7 @@
         overflow: hidden;
       }
       
-      .colorblind {
+      #colorblind {
         border: none;
       }
       
@@ -81,10 +81,13 @@
             <!-- /.navbar-collapse -->
         </div>
     </nav>
-  
-    <iframe class="colorblind" id="colorblind"></iframe>
+    
+    <div id="colorblind-container">
+      <iframe id="colorblind"></iframe>
+    </div>
     
     <script src="libs/jquery.min.js"></script>
+    <script src="libs/jquery.query-yql.min.js"></script>
     <script src="libs/bootstrap.min.js"></script>
     <script src="main.js"></script>
   </body>

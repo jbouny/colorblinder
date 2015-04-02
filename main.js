@@ -105,7 +105,7 @@ function doAjax( url, container ) {
     
     var loadContentWithWhateverOrigin = function( url, successCallback, failCallback ) {
     
-      $.getJSON( 'http://whateverorigin.org/get?url=' + encodeURIComponent( url ) + '&callback=?', function( data ) {
+      $.getJSON( location.protocol + '//www.whateverorigin.org/get?url=' + encodeURIComponent( url ) + '&callback=?', function( data ) {
         successCallback( data.contents );
       } );
     

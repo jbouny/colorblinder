@@ -48,7 +48,7 @@ function loadFilter( filter ) {
 function loadUrl( url ) {
    
   if( -1 === url.indexOf( "://" ) ) {
-    url = 'http://' + url;
+    url = location.protocol + '//' + url;
   }
   
   $( '#url-form .form-control' ).val( url );

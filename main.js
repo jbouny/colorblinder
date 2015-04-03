@@ -1,6 +1,5 @@
 var g_DomParser = new DOMParser(),
     g_Container,
-    g_IframeErrorTimeout,
     g_CurrentFilter;
     
 function updateHeight() {
@@ -63,7 +62,7 @@ function doAjax( url, container ) {
     
   var filterData = function filterData( data ) {
   
-    data = data.replace( new RegExp('(href|src)="/', 'g' ),  '$1="'+urlParent+'/');
+    data = data.replace( new RegExp('(href|src)="/', 'g' ),  '$1="'+urlParent+'/' );
     return data;
     
   }
@@ -105,8 +104,26 @@ function doAjax( url, container ) {
     
     var loadContentWithWhateverOrigin = function( url, successCallback, failCallback ) {
     
-      $.getJSON( location.protocol + '//www.whateverorigin.org/get?url=' + encodeURIComponent( url ) + '&callback=?', function( data ) {
+      $.getJSON( location.protocol + '//www.whateverorigin.org/get?url=' + encodeURIComponent( url ), function( data ) {
         successCallback( data.contents );
+      } );
+    
+    }
+    
+    var loadContentWithYahooAndWhateverOrigin = function( url, successCallback, failCallback ) {
+    
+      url = location.protocol + '//www.whateverorigin.org/get?url=' + url;
+      var statement = 'select * from json where url="' + url + '"';
+      
+      $.queryYQL( statement, 'json', undefined, function ( data ) {
+        console.log( data.query );
+        if( data.query.results ) {
+          successCallback( data.query.results.json.contents );
+        }
+        else {
+          failCallback();
+        }
+        
       } );
     
     }
@@ -121,8 +138,9 @@ function doAjax( url, container ) {
       setContent( errormsg );
     };
     
-    //loadContentWithYahoo( url, successCallback, failCallback );
-    loadContentWithWhateverOrigin( url, successCallback, failCallback );
+    //loadContentWithYahoo( url, successCallback, failCallback ); // Problems with loading some websites
+    //loadContentWithWhateverOrigin( url, successCallback, failCallback ); // SSL certificate not trusted
+    loadContentWithYahooAndWhateverOrigin( url, successCallback, failCallback ); // Fix both problems with a dirty hack
   }
   else {
     setContent( '<p>Error: Can only load http and https contents.</p>' );

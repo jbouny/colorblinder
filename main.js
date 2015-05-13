@@ -60,6 +60,33 @@ function handleLoaderMenu() {
 
 }
 
+function handleHelp() {
+
+  var help = function help() {
+  
+    messg.set( 'position', 'bottom' );
+    messg.set( 'speed', 500 );
+    messg.info(
+      '<p>Welcome to Colorblinder, a color blindness simulator.</p>' +
+      '<p>Please select the color vision deficiency to apply in the top menu.</p>' +
+      '<p>The page loading may not work depending of the security policy of the browser. You can choose other ways to load the page in top menu (default: Iframe).</p>' +
+      '<p>MIT license, build by <a target="_blank" href="http://www.jeremybouny.fr">Jeremy BOUNY</a>.</p>'
+    );
+    
+  };
+  
+  help();
+  
+  $( '#btn-help' ).click( function( event ) {
+    event.preventDefault();
+    
+    if( $( '.messg' ).length === 0 ) {
+      help();
+    }
+  } ) ;
+  
+}
+
 function loadFilter() {
   
   var value = 'none' === g_CurrentFilter ? '' : 'url(colorblindness.svg#' + g_CurrentFilter + ')';
@@ -226,6 +253,7 @@ $( function main() {
   handleFormSubmit();
   handleAbnormalityMenu();
   handleLoaderMenu();
+  handleHelp();
   
   loadUrl( 'https://duckduckgo.com' );
   

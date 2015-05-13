@@ -37,7 +37,6 @@ function handleFormSubmit() {
 
 function handleAbnormalityMenu() {
 
-  console.log( '#abnormality-menu li a[key=' + g_CurrentFilter + ']' );
   $( '#abnormality-menu li a' ).click( function( event ) {
   
     event.preventDefault();
@@ -126,7 +125,24 @@ function doAjax( url, container ) {
     
   var filterData = function filterData( data ) {
   
-    data = data.replace( new RegExp('(href|src)="/', 'g' ),  '$1="'+urlParent+'/' );
+    data = data.replace( new RegExp( '(href|src)="/', 'g' ),  '$1="'+urlParent+'/' );
+    
+    // Formats:
+    // href="...."
+    // href = "...."
+    // href = '....'
+    // src="...."
+    // src = "...."
+    // src = '....'
+    data = data.replace( new RegExp( '(href|src)\s*=\s*(\'|")([^h][^t][^t][^p].*)(\'|")', 'g' ),  '$1="'+urlParent+'/$3"' );
+    
+    // Formats:
+    // url('...')
+    // url ('...')
+    // url ("...")
+    // url ( '...' )
+    // url ( "..." )
+    data = data.replace( new RegExp( 'url\s*\\(\s*(\'|")([^h][^t][^t][^p].*)(\'|")\s*\\)', 'g' ),  'url(\''+urlParent+'/$2\')"' );
     return data;
     
   }
@@ -272,9 +288,8 @@ function parseUrlParameters() {
   var url = 'https://duckduckgo.com';
   
   // Parse url to get parameters (if defined)
-  var url = window.location.href, idx = url.indexOf("#");
-  var anchor = idx != -1 ? url.substring(idx+1) : null;
-  console.log( anchor );
+  var pageUrl = window.location.href, idx = pageUrl.indexOf("#");
+  var anchor = idx != -1 ? pageUrl.substring(idx+1) : null;
   
   if( anchor !== null ) {
     

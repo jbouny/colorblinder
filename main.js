@@ -1,5 +1,6 @@
 var g_DomParser = new DOMParser(),
     g_Container,
+    g_CurrentLoader,
     g_CurrentFilter;
     
 function updateHeight() {
@@ -36,6 +37,27 @@ function handleAbnormalityMenu() {
     $( '#abnormality-menu .dropdown-toggle span' ).html( $( this ).html() );
   } ) ;
   
+}
+
+function handleLoaderMenu() {
+
+  $( '#loader-menu li a' ).click( function( event ) {
+    event.preventDefault();
+    var newLoader = $( this ).attr( 'key' );
+    $( '#loader-menu .dropdown-toggle span' ).html( $( this ).html() );
+    
+    if( newLoader !== g_CurrentLoader ) {
+      
+      g_CurrentLoader = newLoader;
+      
+      // Reload the page
+      $( '#url-form' ).submit();
+      
+    }
+  } ) ;
+  
+  $( 'a[key=iframe]' ).click();
+
 }
 
 function loadFilter() {
@@ -116,7 +138,7 @@ function doAjax( url, container ) {
       var statement = 'select * from json where url="' + url + '"';
       
       $.queryYQL( statement, 'json', undefined, function ( data ) {
-        console.log( data.query );
+      
         if( data.query.results ) {
           successCallback( data.query.results.json.contents );
         }
@@ -138,9 +160,21 @@ function doAjax( url, container ) {
       setContent( errormsg );
     };
     
-    //loadContentWithYahoo( url, successCallback, failCallback ); // Problems with loading some websites
-    //loadContentWithWhateverOrigin( url, successCallback, failCallback ); // SSL certificate not trusted
-    loadContentWithYahooAndWhateverOrigin( url, successCallback, failCallback ); // Fix both problems with a dirty hack
+    switch( g_CurrentLoader )
+    {
+      case 'yql':
+        loadContentWithYahoo( url, successCallback, failCallback ); // Problems with loading some websites
+        break;
+        
+      case 'weo':
+        loadContentWithWhateverOrigin( url, successCallback, failCallback ); // SSL certificate not trusted
+        break;
+        
+      default:
+      case 'yql+weo':
+        loadContentWithYahooAndWhateverOrigin( url, successCallback, failCallback ); // Fix both problems with a dirty hack
+        break;
+    }
   }
   else {
     setContent( '<p>Error: Can only load http and https contents.</p>' );
@@ -160,8 +194,16 @@ function loadUrl( url ) {
   loadFilter();
   
   $( '#url-form .form-control' ).val( url );
-  doAjax( url, g_Container );
-  //g_Container.attr( 'src', url );
+  switch( g_CurrentLoader )
+  {
+    case 'iframe':
+      g_Container.attr( 'src', url );
+      break;
+      
+    default:
+      doAjax( url, g_Container );
+      break
+  }
   jump( url );
   
 }
@@ -178,10 +220,12 @@ $( function main() {
 
   g_Container = $( '#colorblind' );
   g_CurrentFilter = 'none';
+  g_CurrentLoader = 'iframe';
   
   handleIframeHeight();
   handleFormSubmit();
   handleAbnormalityMenu();
+  handleLoaderMenu();
   
   loadUrl( 'https://duckduckgo.com' );
   

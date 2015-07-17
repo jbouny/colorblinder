@@ -293,7 +293,7 @@ function parseUrlParameters() {
   
   if( anchor !== null ) {
     
-    var tokens = anchor.split( '|' );
+    var tokens = anchor.split( /%7C|\|/ );
     console.log( tokens );
     if( tokens.length === 3 ) {
     
